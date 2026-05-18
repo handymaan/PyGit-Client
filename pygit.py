@@ -70,7 +70,7 @@ def log_history():
                 history = json.loads(response.read().decode())
                 
                 print("\n" + "="*50)
-                # Reverse the list so the newest commits are at the top!
+             
                 for commit in reversed(history):
                     print(f"\033[93mcommit {commit['hash']}\033[0m") # Yellow text
                     print(f"Author: {commit['author']}")
