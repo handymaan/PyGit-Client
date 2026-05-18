@@ -72,7 +72,7 @@ def log_history():
                 print("\n" + "="*50)
              
                 for commit in reversed(history):
-                    print(f"\033[93mcommit {commit['hash']}\033[0m") # Yellow text
+                    print(f"\033[93mcommit {commit['hash']}\033[0m")
                     print(f"Author: {commit['author']}")
                     print(f"Date:   {commit['timestamp']}")
                     print(f"\n    {commit['message']}\n")
