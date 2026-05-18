@@ -9,7 +9,7 @@ PYGIT_DIR = ".pygit"
 CONFIG_FILE = os.path.join(PYGIT_DIR, "config.json")
 
 def init_repo(ip_address):
-    """Fakes 'git init' by saving the Pico's IP address."""
+    
     if not os.path.exists(PYGIT_DIR):
         os.makedirs(PYGIT_DIR)
     
@@ -21,7 +21,7 @@ def init_repo(ip_address):
     print(f" Linked to Pico hardware at: {ip_address}")
 
 def get_pico_ip():
-    """Reads the saved IP address."""
+    
     if not os.path.exists(CONFIG_FILE):
         print("❌ Fatal: Not a PyGit repository. Run 'python3 pygit.py init <IP>' first.")
         sys.exit(1)
@@ -30,7 +30,7 @@ def get_pico_ip():
         return json.load(f).get("pico_ip")
 
 def push_commit(filename, message, author):
-    """Fakes 'git commit & push' by hitting our Pico API."""
+   
     ip = get_pico_ip()
     url = f"http://{ip}/api/commit"
     
@@ -59,7 +59,7 @@ def push_commit(filename, message, author):
         print("Is the Pico running 'userver.py' and connected to Wi-Fi?")
 
 def log_history():
-    """Fakes 'git log' by fetching the ledger from the Pico."""
+    
     ip = get_pico_ip()
     url = f"http://{ip}/api/log"
     
