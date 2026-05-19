@@ -81,6 +81,25 @@ def log_history():
                 print(f" Pico responded with code {response.status}")
     except Exception as e:
         print(f" Could not fetch history: {e}")
+
+def show_status():
+    """Checks the local config and pings the hardware."""
+    try:
+        ip = get_pico_ip()
+        print(f" PyGit Client Status")
+        print(f"--------------------------")
+        print(f" Target Hardware IP : {ip}")
+        
+        
+        url = f"http://{ip}/api/log"
+        req = urllib.request.Request(url, method="OPTIONS") 
+        urllib.request.urlopen(req, timeout=2)
+        
+        print(f"Server Status      : ONLINE & LISTENING")
+        print(f" Ready to push files.")
+    except Exception:
+        print(f" Server Status      : OFFLINE (Check Pico W power or Wi-Fi)")  
+
 def main():
     
     parser = argparse.ArgumentParser(description="PyGit: Bare-metal VCS Client")
@@ -98,7 +117,7 @@ def main():
     
     
     log_parser = subparsers.add_parser("log", help="Show the commit history from the hardware")
-    
+    status_parser = subparsers.add_parser("status", help="Check hardware connection status")
    
     args = parser.parse_args()
     
@@ -109,6 +128,8 @@ def main():
         push_commit(args.file, args.message, args.author)
     elif args.command == "log":
         log_history()
+    elif args.command == "status":
+        show_status()    
         
 
 if __name__ == "__main__":
